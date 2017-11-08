@@ -4,6 +4,8 @@ import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements SearchView {
     private SearchResultsAdapter searchResultsAdapter;
     private RecentsAdapter recentsAdapter;
     private MenuItem clearSearchMenuItem;
+
+    @BindView(R.id.mainContent)
+    ConstraintLayout mainContent;
 
     @BindView(R.id.searchBarEditText)
     EditText searchBarEditText;
@@ -181,6 +186,13 @@ public class MainActivity extends AppCompatActivity implements SearchView {
     @Override
     public String getSearchText() {
         return searchBarEditText.getText().toString();
+    }
+
+    @Override
+    public void handleSearchFailure() {
+        progressBar.setVisibility(GONE);
+        Snackbar snackbar = Snackbar.make(mainContent, R.string.search_failure_string, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 
     @Override

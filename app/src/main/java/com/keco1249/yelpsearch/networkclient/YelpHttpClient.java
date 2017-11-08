@@ -46,6 +46,12 @@ public class YelpHttpClient {
                 .enqueue(new Callback<YelpSearchResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<YelpSearchResponse> call, @NonNull Response<YelpSearchResponse> response) {
+                        if (response.body() == null) {
+                            Log.e(TAG, "Error retrieving response body.");
+                            responseListener.onFailure();
+                            return;
+                        }
+
                         List<SearchResult> results = new ArrayList<>();
                         for (YelpSearchResponse.SearchResult result : response.body().businesses) {
                             results.add(new SearchResult(result.id, result.name, result.image_url));

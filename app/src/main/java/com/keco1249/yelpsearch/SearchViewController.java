@@ -90,7 +90,9 @@ public class SearchViewController {
 
             @Override
             public void onFailure() {
-                // TODO Show toast with failure message
+                if (searchView != null) {
+                    searchView.handleSearchFailure();
+                }
             }
         });
 

@@ -16,4 +16,6 @@ public interface SearchView {
     void closeSearchHistoryList();
 
     String getSearchText();
+
+    void handleSearchFailure();
 }
